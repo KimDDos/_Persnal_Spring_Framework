@@ -11,11 +11,32 @@
 	
 	<select id="getList" resultType="com.springproject.www.domain.BoardVO">
 		select * from board
-		order by bno desc
+		order by bno desc limit #{pageStart}, #{qty}
 	</select>
 	
 	<select id="detail" resultType="com.springproject.www.domain.BoardVO">
 		select * from board where bno=#{bno}
+	</select>
+	
+	<update id="modify">
+		update board set
+		title = #{title},
+		content= #{content},
+		mod_at = now(),
+		read_count = read_count - 1
+		where bno=#{bno}
+	</update>
+	
+	<update id="upCount">
+		update board set read_count = read_count + 1 where bno=#{bno}
+	</update>
+	
+	<delete id="deleteBoard">
+		delete from board where bno=#{bno}
+	</delete>
+
+	<select id="getTotal" resultType="int">
+		select Count(bno) from board
 	</select>
 
 </mapper>

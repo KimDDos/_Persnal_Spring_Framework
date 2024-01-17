@@ -24,9 +24,9 @@ public class BoardTest {
 	public void InsertBoard() {
 		for(int i=0; i<400; i++) {
 			BoardVO bvo = new BoardVO();
-			bvo.setTitle("Test " + i+1);
+			bvo.setTitle("Test " + i);
 			bvo.setWriter("Total_Admin");
-			bvo.setContent("Testing " + i+1);
+			bvo.setContent("Testing " + i);
 			bdao.insert(bvo);
 		}
 	}
