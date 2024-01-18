@@ -26,4 +26,18 @@ create database myspringdb
  comment_cnt int default 0, 
  primary key(bno));
  
+ -- 2024 - 01 - 18 --
+ create table member(
+ email varchar(100) not null,
+ pwd varchar(1000) not null,
+ nick_name varchar(100) not null,
+ reg_at datetime default now(),
+ last_login datetime default null,
+ primary key(email))
  
+ create table auth_member(
+ email varchar(100) not null,
+ auth varchar(50) not null)
+ 
+ alter table auth_member add constraint fk_auth
+ foreign key(email) references member(email) On delete CASCADE

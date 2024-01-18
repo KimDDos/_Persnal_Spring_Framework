@@ -22,6 +22,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/board/list">Board List</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/member/register">Member register</a>
+        </li>
       </ul>
       <!-- <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

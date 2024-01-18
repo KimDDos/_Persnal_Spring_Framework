@@ -155,13 +155,14 @@
 		
 		<!-- Dependency 추가 영역 -->
 		
-		<!-- org.projectlombok/lombok 1.18.30 -->
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
-		    <version>1.18.30</version>
+		    <version>1.18.24</version>
 		    <scope>provided</scope>
 		</dependency>
+
 	
 		<!-- DB 연결 설정 -->
 		<!-- /mysql-connector-java -->

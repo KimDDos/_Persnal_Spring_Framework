@@ -15,7 +15,7 @@
 	<div class="row g-3">
 		<input type="hidden" name="bno" value="${bvo.bno}">
 		<div class="col-sm-7">
-			<label for="writer" class="form-label">writer</label> <input
+			<label for="writer" class="form-label">Writer</label> <input
 				type="text" class="form-control" name="writer" id="writer"
 				value="${bvo.writer}" disabled>
 		</div>
@@ -38,7 +38,7 @@
 		</div>
 	</div>
 	<div class="mb-3">
-		<label for="content" class="form-label">textarea</label>
+		<label for="content" class="form-label">Textarea</label>
 		<textarea class="form-control" name="content" id="content" rows="3"
 			disabled>${bvo.content}</textarea>
 	</div>
