@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springproject.www.domain.BoardVO;
+import com.springproject.www.domain.PagingVO;
+import com.springproject.www.handler.PagingHandler;
 import com.springproject.www.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,18 +38,37 @@ public class BoardController {
 	}
 	
 	@GetMapping("/list")
-	public void boardList(Model m) {
-		List <BoardVO> list = bsv.getList();
+	public void boardList(Model m, PagingVO pgvo) {
+		List <BoardVO> list = bsv.getList(pgvo);
 		log.info(">>>> list >>>> {}", list);
+		int totalCount = bsv.getTotalCount();
+
+		m.addAttribute("ph", new PagingHandler(pgvo, totalCount));
 		m.addAttribute("list", list);
 	}
 	
-	@GetMapping("/detail")
+	@GetMapping({"/detail", "/modify"})
 	public void detail(@RequestParam("bno") int bno, Model m) {
 		log.info(">>>>> detail bno >>>>>",bno);
 		BoardVO bvo = bsv.getDetail(bno);
 		log.info(">>>>> bvo >>>>>",bvo);
 		m.addAttribute("bvo", bvo);
+	}
+		
+	@PostMapping("modify")
+	public String modify(BoardVO bvo, RedirectAttributes re) {
+		log.info(">>>> bvo >>>> {}", bvo);
+		int isOk = bsv.modify(bvo);
+		re.addAttribute("bno", bvo.getBno());
+		re.addFlashAttribute("msg_mod", isOk);
+		return "redirect:/board/detail";
+	}
+	
+	@GetMapping("delete")
+	public String delete(@RequestParam("bno") int bno, Model m) {
+		int isOk = bsv.delete(bno);
+		m.addAttribute("msg_del", isOk);
+		return "redirect:/board/list";
 	}
 	
 }
