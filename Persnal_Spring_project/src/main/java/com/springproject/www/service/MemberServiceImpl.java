@@ -17,7 +17,8 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int register(MemberVO mvo) {
-		return mdao.insert(mvo);
+		mdao.insert(mvo);
+		return mdao.insertAuthInit(mvo.getEmail());
 	}
 
 	@Override
@@ -29,6 +30,23 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public boolean updateLastLogin(String authEmail) {
 		return mdao.updateLastLogin(authEmail) > 0 ? true : false;
+	}
+
+	@Override
+	public int modify(MemberVO mvo) {
+		return mdao.modify(mvo);
+	}
+
+	@Override
+	public String getPwd(String email) {
+		// TODO Auto-generated method stub
+		return mdao.getPwd(email);
+	}
+
+	@Override
+	public int delete(String email) {
+		// TODO Auto-generated method stub
+		return mdao.delete(email);
 	}
 	
 }

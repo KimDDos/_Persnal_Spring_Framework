@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <jsp:include page="../layout/Header.jsp"></jsp:include>
 <jsp:include page="../layout/NavTab.jsp"></jsp:include>
 
@@ -54,9 +55,14 @@
 			</svg> 비추천 ${bvo.boardNotCommend}</button>
 		</div>
 	</div>
-
-	<a href="/board/modify?bno=${bvo.bno}"><button type="button" class="btn btn-dark">Modify</button></a>
-
+	<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.mvo.email" var="authEmail"/>
+		<c:choose>
+			<c:when test="${authEmail == bvo.writer}">
+				<a href="/board/modify?bno=${bvo.bno}"><button type="button" class="btn btn-dark">Modify</button></a>
+			</c:when>
+		</c:choose>
+	</sec:authorize>
 </div>
 
 <script type="text/javascript">

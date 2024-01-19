@@ -11,7 +11,11 @@
 
 <script type="text/javascript">
 	const msg_MemReg = `<c:out value="${msg_MemReg}"/>`;
+	const msg_mod = `<c:out value="${msg_mod}"/>`;
+	const msg_memDel = `<c:out value="${msg_memDel}"/>`;
 	if(msg_MemReg == '1'){alert("회원가입 성공~!")}
+	if(msg_mod == '1'){alert("회원정보수정 성공~!")}
+	if(msg_memDel == '1'){alert("회원탈퇴 성공~! 지금까지 이용해주셔서 감사합니다.")}
 </script>
 
 <jsp:include page="./layout/Footer.jsp"></jsp:include>

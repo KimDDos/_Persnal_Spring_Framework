@@ -10,4 +10,10 @@ public interface MemberService {
 
 	boolean updateLastLogin(String authEmail);
 
+	int modify(MemberVO mvo);
+
+	String getPwd(String email);
+
+	int delete(String email);
+
 }

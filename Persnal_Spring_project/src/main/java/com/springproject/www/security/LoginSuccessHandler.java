@@ -22,14 +22,18 @@ import com.springproject.www.service.MemberService;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
-@Getter
-@Setter
 public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 
+	@Getter
+	@Setter
 	private String authEmail;
 	
+	@Getter
+	@Setter
 	private String authUrl;
 	
 	private RedirectStrategy rdstg = new DefaultRedirectStrategy();
@@ -44,7 +48,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 			Authentication authentication) throws IOException, ServletException {
 		
 		setAuthEmail(authentication.getName());
-		setAuthUrl("index");
+		setAuthUrl("/");
 		
 		boolean isOk = msv.updateLastLogin(getAuthEmail()); 
 		

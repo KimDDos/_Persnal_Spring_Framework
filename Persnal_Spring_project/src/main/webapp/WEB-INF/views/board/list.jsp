@@ -53,6 +53,32 @@
 		</ul>
 	</nav>
 
+	<form class="d-flex" action="/board/list">
+		<div class="input-group mb-3">
+			<select class="form-select" name="type">
+				<c:set value="${ph.pgvo.type }" var="typed"></c:set>
+				<option ${typed eq null ? 'selected' : '' }>Choose...</option>
+				<option value="t" ${typed eq 't' ? 'selected' : '' }>Title</option>
+				<option value="w" ${typed eq 'w' ? 'selected' : '' }>Writer</option>
+				<option value="c" ${typed eq 'c' ? 'selected' : '' }>Content</option>
+				<option value="tw" ${typed eq 'tw' ? 'selected' : '' }>Title
+					+ Writer</option>
+				<option value="tc" ${typed eq 'tc' ? 'selected' : '' }>Title
+					+ Content</option>
+				<option value="wc" ${typed eq 'wc' ? 'selected' : '' }>Writer
+					+ Content</option>
+				<option value="twc" ${typed eq 'twc' ? 'selected' : '' }>Title
+					+ Writer + Content</option>
+			</select> 
+			<input type="hidden" name="pageNo" value="1"> 
+			<input type="hidden" name="qty" value="${ph.pgvo.qty}"> 
+			<input class="form-control me-2" type="text" name="keyword" value="${ph.pgvo.keyword}" placeholder="Search" aria-label="Search">
+			<button class="btn btn-dark" type="submit">
+				Search<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">${ph.totalcount }</span>
+			</button>
+		</div>
+	</form>
+
 </div>
 
 <script type="text/javascript">

@@ -9,8 +9,12 @@
 	</select>
 	
 	<insert id="insert">
-		insert into member set (email, pwd, nick_name)
+		insert into member (email, pwd, nick_name)
 		values(#{email}, #{pwd}, #{nickName})
+	</insert>
+	
+	<insert id="insertAuthInit">
+		insert into auth_member (email, auth) values(#{email}, 'ROLE_USER')
 	</insert>
 	
 	<select id="isEmail" resultType="com.springproject.www.security.MemberVO">
@@ -22,5 +26,21 @@
 		last_login = now()
 		where email = #{email}
 	</update>
+
+	<select id="getPwd" resultType="String">
+		select pwd from member where email=#{email}
+	</select>
+	
+	<update id="modify">
+		update member set
+		pwd = #{pwd},
+		nick_name = #{nickName}
+		where email=#{email}
+	</update>
+
+	<delete id="delete">
+		delete from member 
+		where email = #{email}
+	</delete>
 
 </mapper>

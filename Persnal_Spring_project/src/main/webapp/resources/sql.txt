@@ -41,3 +41,17 @@ create database myspringdb
  
  alter table auth_member add constraint fk_auth
  foreign key(email) references member(email) On delete CASCADE
+ 
+ -- 2024 - 01 - 19 --
+ create table comment(
+ cno int auto_increment,
+ bno bigint not null,
+ writer varchar(100) not null,
+ content varchar(500) not null,
+ reg_date datetime default now(),
+ mod_date datetime default now();
+ primary key(cno));
+ 
+ // 아직 미반영(24.01.19)
+ alter table comment add constraint fk_bno
+ foreign key(bno) references board(bno) On delete CASCADE

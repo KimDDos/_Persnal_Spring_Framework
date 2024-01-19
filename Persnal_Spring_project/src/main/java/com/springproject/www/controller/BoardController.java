@@ -34,7 +34,7 @@ public class BoardController {
 		log.info(">>>> bvo >>>>", bvo);
 		int isOk = bsv.insert(bvo);
 		m.addAttribute("msg_reg", isOk);
-		return "/board/list";
+		return "redirect:/board/list";
 	}
 	
 	@GetMapping("/list")

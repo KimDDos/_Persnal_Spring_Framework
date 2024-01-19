@@ -15,4 +15,12 @@ public interface MemberDAO {
 
 	int updateLastLogin(String authEmail);
 
+	int insertAuthInit(String email);
+
+	int modify(MemberVO mvo);
+
+	String getPwd(String email);
+
+	int delete(String email);
+
 }
