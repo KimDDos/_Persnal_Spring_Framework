@@ -31,7 +31,7 @@
 			<label for="pwd" class="form-label">Password 확인</label> 
 			<input type="text" class="form-control" name="pwd" id="pwd"	placeholder="Password 를 입력해주세요">
 			<div id="pwdChekResult">
-				<span id="pwdCheckResult"> dddddd </span>
+				<span id="pwdCheckResult"> default </span>
 				<!-- boolean으로 된다 안된다 체크 출력 -->
 				<!-- <span class="badge text-bg-danger">Danger</span> / <span class="badge text-bg-success">Success</span> -->
 			</div>
