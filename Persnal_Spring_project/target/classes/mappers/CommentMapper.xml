@@ -4,6 +4,28 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springproject.www.repository.CommentDAO">
 
+	<insert id="insert">
+		insert into comment(bno, writer, content, writer_nickname)
+		values(#{bno}, #{writer}, #{content}, #{writerNickname})
+	</insert>
 
+	<select id="getList" resultType="com.springproject.www.domain.CommentVO">
+		select * from comment where bno = #{bno}
+	</select>
+
+	<select id="detail" resultType="com.springproject.www.domain.CommentVO">
+		select * from comment where cno = #{cno}
+	</select>
+	
+	<delete id="delete">
+		delete from comment where cno=#{cno}
+	</delete>
+	
+	<update id="modify">
+		update comment set
+		content = #{content},
+		mod_date = now()
+		where cno=#{cno}
+	</update>
 
 </mapper>

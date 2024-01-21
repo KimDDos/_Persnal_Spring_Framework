@@ -17,7 +17,8 @@ public class CommentVO {
 	private long bno;
 	private String writer;
 	private String content;
-	private String regAt;
-	private String modAt;
+	private String regDate;
+	private String modDate;
+	private String writerNickname;
 	
 }

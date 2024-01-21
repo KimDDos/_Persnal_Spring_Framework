@@ -21,7 +21,7 @@
 		  <input type="text" class="form-control" name="writer" id="writer" value="${authEmail}" readonly>
 		</div>
 		<div class="mb-3">
-		  <label for="content" class="form-label">Example textarea</label>
+		  <label for="content" class="form-label">Example Textarea</label>
 		  <textarea class="form-control" name="content" id="content" rows="3">내용을 입력해주세요.</textarea>
 		</div>
 		<button type="submit" class="btn btn-dark">작성</button>
