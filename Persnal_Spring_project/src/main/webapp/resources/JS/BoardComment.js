@@ -1,4 +1,5 @@
 console.log("comment JS 입성~!");
+console.log(authEmail);
 
 document.getElementById('cmtRegBtn').addEventListener('click',()=>{
   let email = document.getElementById('floatingEmail').value;
@@ -51,7 +52,7 @@ async function getCommentListFromServer(bnoVal){
   try {
     const url = "/comment/list/" + bnoVal;
     const resp = await fetch(url);
-    const result = resp.json();
+    const result = await resp.json();
     return result;
   } catch (error) {
     console.log(error);
@@ -65,6 +66,7 @@ function spreadCommentList(bnoVal){
     spreadDiv.innerHTML = "";
     if(result.length > 0){
       for(const cvo of result){
+        let writer = `${cvo.writer}`;
         let cmtText = `<div class="accordion accordion-flush" id="accordionFlushExample">`;
         cmtText += `<div class="accordion-item">`;
         cmtText += `<h2 class="accordion-header">`;
@@ -85,8 +87,10 @@ function spreadCommentList(bnoVal){
         cmtText += `<div class="accordion-body">`;
         cmtText += `<textarea class="form-control" name="content" id="floatingTextarea2"
         style="height: 100px; margin-bottom: 15px;" disabled>${cvo.content}</textarea>`;
+        if(authEmail == writer){
         cmtText += `<button class="btn btn-sm btn-outline-warning cmtModify" data-cno="${cvo.cno}" style="margin-right: 7px" data-bs-toggle="modal" data-bs-target="#exampleModal">Modify</button>`;
         cmtText += `<button class="btn btn-sm btn-outline-danger cmtDelete" data-cno="${cvo.cno}">Delete</button>`;
+        }
         cmtText += `</div></div></div></div>`;
         spreadDiv.innerHTML += cmtText;
       }
@@ -104,6 +108,7 @@ document.addEventListener('click', (e)=>{
     let modal = document.querySelector(".modal");
     getCommentDetail(e.target.dataset.cno).then(result => {
       let cmtText = "";
+      let writer = `${result.writer}`;
       if(result != null){
         cmtText += `<div class="modal-dialog">`;
         cmtText += `<div class="modal-content">`;
@@ -114,8 +119,10 @@ document.addEventListener('click', (e)=>{
         cmtText += `<input type="text" class="form-control" name="content" id="modalContent" value="${result.content}">`;
         cmtText += `</div>`;
         cmtText += `<div class="modal-footer">`;
-        cmtText += `<button type="button" class="btn btn-warning cmtDetailModify" data-bs-dismiss="modal" data-cno="${result.cno}">Modify</button>`;
-        cmtText += `<button type="button" class="btn btn-danger cmtDelete" data-cno="${result.cno}">Delete</button>`;
+        if(authEmail == writer){
+          cmtText += `<button type="button" class="btn btn-warning cmtDetailModify" data-bs-dismiss="modal" data-cno="${result.cno}">Modify</button>`;
+          cmtText += `<button type="button" class="btn btn-danger cmtDelete" data-cno="${result.cno}">Delete</button>`;
+        }
         cmtText += `</div></div></div></div>`;
       } else {
         cmtText += `<div class="modal-dialog">
@@ -159,10 +166,31 @@ document.addEventListener('click', (e)=>{
       console.log(result);
       if(result == '1'){
         alert("댓글 삭제 성공~!");
-      } 
+      }
+      document.querySelector('.btn-close').click();
       spreadCommentList(bnoVal);
     })
 
+  } else if(e.target.classList.contains('btn-outline-danger') || e.target.classList.contains('btn-outline-dark')){
+    let path = "";
+    if(e.target.classList.contains('btn-outline-danger')){
+      path = "commendUp";
+    } else {
+      path = "commendDown";
+    }
+    updateCommentrecommendToServer(bnoVal,path).then(result => {
+      console.log(result);
+      if(path == "commendUp"){
+        document.getElementById('commend-up').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+			  </svg> 추천 ${result}`;
+      } else {
+        document.getElementById('commend-down').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
+			  <path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
+			  </svg> 비추천 ${result}`;
+      }
+
+    })
   }
 
 })
@@ -171,7 +199,7 @@ async function getCommentDetail(cnoVal){
   try {
     const url = "/comment/detail/" + cnoVal;
     const resp = await fetch(url);
-    const result = resp.json();
+    const result = await resp.json();
     return result;
   } catch (error) {
     console.log(error);
@@ -180,9 +208,9 @@ async function getCommentDetail(cnoVal){
 
 async function deleteCommentToServer(cnoVal){
   try {
-    const url = "/comment/detail/" + cnoVal;
+    const url = "/comment/delete/" + cnoVal;
     const resp = await fetch(url);
-    const result = resp.text();
+    const result = await resp.text();
     return result;
   } catch (error) {
     console.log(error);
@@ -200,6 +228,17 @@ async function modifyCommentToServer(cmtData){
       body: JSON.stringify(cmtData)
     }
     const resp = await fetch(url, config);
+    const result = await resp.text();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function updateCommentrecommendToServer(bnoVal, path){
+  try {
+    const url = "/board/"+path+"/"+bnoVal;
+    const resp = await fetch(url);
     const result = await resp.text();
     return result;
   } catch (error) {

@@ -64,11 +64,11 @@
 	</div>
 	<div class="mb-3">
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-			<button class="btn btn-outline-danger" type="button">
+			<button class="btn btn-outline-danger" id="commend-up" type="button">
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
 			  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
 			</svg> 추천 ${bvo.boardCommend}</button>
-			<button class="btn btn-outline-dark" type="button">
+			<button class="btn btn-outline-dark" id="commend-down" type="button">
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
 			  <path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
 			</svg> 비추천 ${bvo.boardNotCommend}</button>
@@ -86,6 +86,7 @@
 	<br>
 	<hr>
 		<div class="comment-reg">
+			<input type="hidden" id="authEmailValue" value="${authEmail}">
 			<h1>Comment Register</h1>
 			<div class="row g-3" style="margin-bottom: 15px">
 				<div class="col">
@@ -112,6 +113,7 @@
 	</sec:authorize>
 	<sec:authorize access="isAnonymous()">
 		<div class="comment-reg">
+		<input type="hidden" id="authEmailValue" value="Anonymous">
 			<h1>Comment Register</h1>
 			<div class="form-floating" style="margin-bottom: 10px">
 				<textarea class="form-control" name="content" id="floatingTextarea2"
@@ -119,7 +121,7 @@
 				<label for="floatingTextarea2">Content</label>
 			</div>
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				<button class="btn btn-dark me-md-2" type="button" disabled>Comment
+				<button class="btn btn-dark me-md-2" id="cmtRegBtn" type="button" disabled>Comment
 					Register</button>
 			</div>
 		</div>
@@ -150,6 +152,9 @@
 	
 </div>
 
+<script type="text/javascript">
+	const authEmail = document.getElementById('authEmailValue').value;
+</script>
 <script src="/resources/JS/BoardComment.js"></script>
 <script type="text/javascript">
 	const bnoVal = `<c:out value="${bvo.bno}"/>`;

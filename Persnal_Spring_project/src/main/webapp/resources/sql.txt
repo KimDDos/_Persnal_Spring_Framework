@@ -20,7 +20,7 @@ create database myspringdb
  reg_at datetime default now(),
  mod_at datetime default now(),
  board_commend int default 0,
- board_notcomend int default 0,
+ board_not_commend int default 0,
  read_count int default 0,
  file_qty int default 0,
  comment_cnt int default 0, 
@@ -57,3 +57,17 @@ create database myspringdb
  foreign key(bno) references board(bno) On delete CASCADE
  
  ALTER TABLE comment ADD COLUMN writer_nickname varchar(100) NOT NULL;
+ 
+ -- 2024 - 01 - 22 --
+ -- 컬럼명 수정... --
+ alter table board change board_notcomend board_not_commend int default 0;
+ 
+ create table file(
+ uuid varchar(256) not null,
+ save_dir varchar(256) not null,
+ file_name varchar(256) not null,
+ file_type tinyint(1) default 0,
+ bno bigint,
+ file_size bigint,
+ reg_at datetime default now(),
+ primary key(uuid));

@@ -21,4 +21,14 @@ public interface BoardDAO {
 
 	int getTotal();
 
+	int commendUp(long bno);
+
+	int commendDown(long bno);
+
+	int getCommend(long bno);
+
+	int getNotCommend(long bno);
+
+	long selectOneBno();
+
 }

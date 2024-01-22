@@ -32,13 +32,37 @@
 		update board set read_count = read_count + 1 where bno=#{bno}
 	</update>
 	
+	<update id="commendUp">
+		update board 
+		set board_commend = board_commend + 1 
+		where bno = #{bno} 
+	</update>
+	
+	<update id="commendDown">
+		update board 
+		set board_notcomend = board_notcomend + 1 
+		where bno = #{bno}
+	</update>
+	
 	<delete id="deleteBoard">
 		delete from board where bno=#{bno}
 	</delete>
+	
+	<select id="getCommend" resultType="int">
+		select board_commend from board where bno=#{bno}
+	</select>
+	
+	<select id="getNotCommend" resultType="int">
+		select board_not_commend from board where bno=#{bno}
+	</select>
 
 	<select id="getTotal" resultType="int">
 		select Count(bno) from board
 		<include refid="search"></include>
+	</select>
+	
+	<select id="selectOneBno" resultType="int">
+		select max(bno) from board 
 	</select>
 	
 	<sql id="search">

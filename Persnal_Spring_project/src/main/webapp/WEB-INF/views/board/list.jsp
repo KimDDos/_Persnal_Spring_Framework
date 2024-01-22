@@ -16,6 +16,8 @@
 	      <th scope="col">Reg At</th>
 	      <th scope="col">Read Count</th>
 	      <th scope="col">file Count</th>
+	      <th scope="col">Commend Count</th>
+	      <th scope="col">Not Commend Count</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -32,6 +34,8 @@
 	      </c:if>
 	      <td>${bvo.readCount}</td>
 	      <td>${bvo.fileQty}</td>
+	      <td>${bvo.boardCommend}</td>
+	      <td>${bvo.boardNotCommend}</td>
 	    </tr>
 	    </c:forEach>
 	</table>
