@@ -45,8 +45,8 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 	protected void customizeRegistration(Dynamic registration) {
 		// 사용자 지정 익셉션 설정을 할 것인지 처리 throwExceptionIfNoHandlerFound
 		// 파일 업로드 할때 설정할 예정
-		// C:\Users\DoYeon Kim\Desktop\Gookbi\_Persnal_Spring_Framework\_mySpringProject\_java
-		String uploadLocation = "C:\\Users\\DoYeon Kim\\Desktop\\Gookbi\\_Persnal_Spring_Framework\\_mySpringProject\\_java";
+		// C:\Users\DoYeon Kim\Desktop\Gookbi\_mySpringProject\_java\_Upload
+		String uploadLocation = "C:\\Users\\DoYeon Kim\\Desktop\\Gookbi\\_mySpringProject\\_java\\_Upload";
 		int maxFileSize = 1024*1024*20;
 		int maxReqSize = maxFileSize * 2;
 		int fileSizeThreshold = maxReqSize;

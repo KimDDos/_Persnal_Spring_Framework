@@ -8,7 +8,8 @@
 	<h1>Board Detail Page</h1>
 	<hr>
 	<br>
-	<form action="/board/modify" method="post">
+	<c:set value="${bdto.bvo}" var="bvo"></c:set>
+	<form action="/board/modify" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="bno" value="${bvo.bno}">
 		<div class="mb-3">
 			<label for="title" class="form-label">Title</label> <input type="text"
@@ -44,10 +45,52 @@
 			<textarea class="form-control" name="content" id="content" rows="3"
 				>${bvo.content}</textarea>
 		</div>
-	
-		<button type="submit" class="btn btn-dark">Modify</button>
+		
+		<!-- file line -->
+		<c:set value="${bdto.flist}" var="flist"></c:set>
+		<div class="mb-3">
+			<label for="f" class="form-label">File</label>
+			<ul class="list-group list-group-flush">
+				<c:forEach items="${flist}" var="fvo">
+	  				<li class="list-group-item">
+	  					<c:choose>
+	  						<c:when test="${fvo.fileType == 1 }">
+	  							<div>
+	  								<img alt="" src="/upload/${fvo.saveDir}/${fvo.uuid}_${fvo.fileName}" style="height: 120px; width: 120px;">
+	  							</div>
+	  						</c:when>
+	  						<c:otherwise>
+	  							<div>
+	  								<i class="bi bi-file-earmark-excel"></i> <span> <b>파일을 불러올수 없습니다.</b></span>
+	  							</div>
+	  						</c:otherwise>
+	  					</c:choose>
+	  					<div class="ms-2 me-auto">
+	  						<div class="fw-bold">${fvo.fileName} <span class="badge text-bg-secondary"> ${fvo.fileSize} Byte</span></div>
+	  						<button type="button" data-uuid="${fvo.uuid}" class="btn btn-danger btn-sm fileDel">X</button>
+	  					</div>
+	  				</li>
+				</c:forEach>
+			</ul>
+		</div>
+		
+		<!-- file 입력 라인 추가 -->
+		<div class="mb-3">
+			<label for="file" class="form-label">Files....</label> <input
+				type="file" class="form-control" name="files" id="files"
+				multiple="multiple" style="display: none"> <br>
+			<!-- 파일 버튼 트리거 사용하기 위해서 주는 버튼 -->
+			<button type="button" class="btn btn-primary" id="trigger"><b>FileUpload</b></button>
+		</div>
+		<!-- 파일 목록 표시라인 -->
+		<div class="mb-3" id="fileZone">
+			
+		</div>
+		
+		<button type="submit" class="btn btn-dark" id="regBtn">Modify</button>
 		<a href="/board/delete?bno=${bvo.bno}"><button type="button" class="btn btn-dark">Delete</button></a>
 	</form>
 </div>
-
+<script type="text/javascript" src="/resources/JS/BoardRegister.js"></script>
+<script type="text/javascript" src="/resources/JS/BoardModify.js"></script>
 <jsp:include page="../layout/Footer.jsp"></jsp:include>

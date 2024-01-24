@@ -2,13 +2,16 @@ package com.springproject.www.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,7 +37,7 @@ public class BoardController {
 
 	private final BoardService bsv;
 	
-	private FileHandler fh;
+	private final FileHandler fh;
 
 	@GetMapping("/register")
 	public void register() {}
@@ -63,10 +66,7 @@ public class BoardController {
 	
 	@GetMapping({"/detail", "/modify"})
 	public void detail(@RequestParam("bno") int bno, Model m) {
-		log.info(">>>>> detail bno >>>>>",bno);
-		BoardVO bvo = bsv.getDetail(bno);
-		log.info(">>>>> bvo >>>>>",bvo);
-		m.addAttribute("bvo", bvo);
+		m.addAttribute("bdto", bsv.getDetail(bno));
 	}
 		
 	@PostMapping("modify")
@@ -101,6 +101,12 @@ public class BoardController {
 		int isOk = bsv.commendDown(bno);
 		String result = Integer.toString(bsv.getNotCommend(bno));
 		return isOk > 0 ? result : "0";
+	}
+	
+	@DeleteMapping(value = "/fileDelete/{uuid}", produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> fileDelete(@PathVariable("uuid") String uuid){
+		int isOk = bsv.fileDelete(uuid);
+		return isOk > 0 ? new ResponseEntity<String>("1", HttpStatus.OK): new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 }

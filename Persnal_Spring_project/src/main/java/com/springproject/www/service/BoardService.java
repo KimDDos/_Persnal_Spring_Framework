@@ -10,7 +10,7 @@ public interface BoardService {
 
 	List<BoardVO> getList(PagingVO pgvo);
 
-	BoardVO getDetail(int bno);
+	BoardDTO getDetail(int bno);
 
 	int modify(BoardVO bvo);
 	
@@ -29,5 +29,7 @@ public interface BoardService {
 	int getNotCommend(long bno);
 
 	int insert(BoardDTO bdto);
+
+	int fileDelete(String uuid);
 
 }

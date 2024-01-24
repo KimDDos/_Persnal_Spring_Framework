@@ -50,9 +50,12 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public BoardVO getDetail(int bno) {
+	public BoardDTO getDetail(int bno) {
 		bdao.upCount(bno);
-		return bdao.detail(bno);
+		BoardDTO bdto = new BoardDTO();
+		bdto.setBvo(bdao.detail(bno));
+		bdto.setFlist(fdao.getFlist(bno));
+		return bdto;
 	}
 
 	@Override
@@ -93,6 +96,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int getNotCommend(long bno) {
 		return bdao.getNotCommend(bno);
+	}
+
+	@Override
+	public int fileDelete(String uuid) {
+		return fdao.fileDelete(uuid);
 	}
 	
 }

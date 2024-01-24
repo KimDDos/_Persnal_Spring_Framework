@@ -19,7 +19,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 
 @MapperScan(basePackages = {"com.springproject.www.repository"})
-@ComponentScan(basePackages = {"com.springproject.www.service", "com.springproject.www.handler"})
+@ComponentScan(basePackages = {"com.springproject.www.service"})
 @EnableTransactionManagement
 @EnableScheduling
 @Configuration

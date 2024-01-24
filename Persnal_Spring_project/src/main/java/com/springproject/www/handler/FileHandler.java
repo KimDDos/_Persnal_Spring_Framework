@@ -20,10 +20,10 @@ import net.coobird.thumbnailator.Thumbnails;
 @Component
 public class FileHandler {
 	
-	private final String UP_DIR = "C:\\Users\\DoYeon Kim\\Desktop\\Gookbi\\_Persnal_Spring_Framework\\_mySpringProject\\_java";
+	private final String UP_DIR = "C:\\Users\\DoYeon Kim\\Desktop\\Gookbi\\_mySpringProject\\_java\\_Upload";
 	
 	public List<FileVO> uploadFiles(MultipartFile[] files){
-		List<FileVO> flist = new ArrayList<>();
+		List<FileVO> flist = new ArrayList<FileVO>();
 		LocalDate date = LocalDate.now();
 		String today = date.toString();
 		today = today.replace("-", File.separator);
@@ -60,6 +60,8 @@ public class FileHandler {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			flist.add(fvo);
 		}
 		
 		return flist;

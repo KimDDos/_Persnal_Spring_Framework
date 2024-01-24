@@ -40,7 +40,7 @@
 	
 	<update id="commendDown">
 		update board 
-		set board_notcomend = board_notcomend + 1 
+		set board_not_comend = board_not_comend + 1 
 		where bno = #{bno}
 	</update>
 	
@@ -61,7 +61,7 @@
 		<include refid="search"></include>
 	</select>
 	
-	<select id="selectOneBno" resultType="int">
+	<select id="selectOneBno" resultType="long">
 		select max(bno) from board 
 	</select>
 	

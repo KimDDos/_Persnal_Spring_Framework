@@ -27,7 +27,7 @@
 		
 		<!-- file 입력 라인 추가 -->
 		<div class="mb-3">
-			<label for="file" class="form-label">Files....</label> <input
+			<label for="files" class="form-label">Files....</label> <input
 				type="file" class="form-control" name="files" id="files"
 				multiple="multiple" style="display: none"> <br>
 			<!-- 파일 버튼 트리거 사용하기 위해서 주는 버튼 -->
